@@ -16,7 +16,6 @@ jobs:
          msystem: mingw64
          install: >-
            git
-           ssh
     - name: repoA checkout
       uses: actions/checkout@v2
       with:
