@@ -6,15 +6,12 @@ jobs:
     default:
       run:
         shell: bash
-    strategy:
-      matrix:
-        include:
-          - { sys: mingw64, env: x86_64 }
     steps:
     - name: install MSYS2
       uses: msys2/setup-msys2@v2
-         update: true
-         msystem: ${{matrix.sys}}
+      with:
+         update: false
+         msystem: mingw64
          install: >-
            git
            ssh
