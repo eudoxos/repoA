@@ -1,5 +1,12 @@
 name: Checkout repoB via ssh
 
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+
 jobs:
   checkout:
     runs-on: windows-latest
