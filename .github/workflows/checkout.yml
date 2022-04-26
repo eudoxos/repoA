@@ -3,7 +3,7 @@ name: Checkout repoB via ssh
 on: [push, pull_request]
 
 jobs:
-  checkout:
+  checkout-windows:
     runs-on: windows-latest
     defaults:
       run:
@@ -18,8 +18,18 @@ jobs:
            git
     - name: repoA checkout
       uses: actions/checkout@v2
-      with:
-        submodules: recursive
+    - name: repoB checkout
+      run: |
+        set -x
+        ls repoB_*
+        chmod 600 repoB_*
+        git -c core.sshCommand='ssh -vvv -i repoB_deployment_key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no' clone -b main git@github.com:eudoxos/repoB.git repoB
+        ls repoB/README.md
+
+  checkout-ubuntu:
+    runs-on: ubuntu-20.04
+    - name: repoA checkout
+      uses: actions/checkout@v2
     - name: repoB checkout
       run: |
         set -x
