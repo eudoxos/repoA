@@ -1,0 +1,31 @@
+name: Checkout repoB via ssh
+
+jobs:
+  checkout:
+    runs-on: windows-latest
+    default:
+      run:
+        shell: bash
+    strategy:
+      matrix:
+        include:
+          - { sys: mingw64, env: x86_64 }
+    steps:
+    - name: install MSYS2
+      uses: msys2/setup-msys2@v2
+         update: true
+         msystem: ${{matrix.sys}}
+         install: >-
+           git
+           ssh
+    - name: repoA checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: repoB checkout
+      run: |
+        set -x
+        ls repoB_*
+        chmod 600 repoB_*
+        git -c core.sshCommand='ssh -vvv -i repoB_deployment_key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no' clone -b main git@github.com:eudoxos/repoB.git repoB
+        ls repoB/README.md
