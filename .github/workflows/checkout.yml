@@ -14,19 +14,16 @@ jobs:
       with:
          update: true
          msystem: mingw64
-         install: >-
-           git
-           util-linux
-           dos2unix
+         install: git util-linux dos2unix
     - name: repoA checkout
       uses: actions/checkout@v2
     - name: repoB checkout
       run: |
         set -x
         ls repoB_*
-        chmod 600 repoB_*
-        pacman -Ql util-linux
-        /usr/bin/hexdump.exe repoB_deployment_key
+        # chmod 600 repoB_*
+        # pacman -Ql util-linux
+        #/usr/bin/hexdump.exe repoB_deployment_key
         dos2unix repoB_deployment_key
         dos2unix repoB_deployment_key_60
         # ssh-add repoB_deployment_key # suggested by https://serverfault.com/a/1095310
