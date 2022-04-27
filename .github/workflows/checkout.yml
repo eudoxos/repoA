@@ -23,7 +23,7 @@ jobs:
         ls repoB_*
         chmod 600 repoB_*
         dos2unix repoB_deployment_key
-        git -c core.sshCommand='ssh -vvv -i repoB_deployment_key' clone -b main git@github.com:eudoxos/repoB.git repoB
+        git -c core.sshCommand='ssh -vvv -i repoB_deployment_key -o UserKnownHostsFile=/dev/null' clone -b main git@github.com:eudoxos/repoB.git repoB
         ls repoB/README.md
   checkout-ubuntu:
     runs-on: ubuntu-20.04
