@@ -25,10 +25,12 @@ jobs:
         set -x
         ls repoB_*
         chmod 600 repoB_*
-        hexdump repoB_deployment_key
+        /usr/bin/hexdump.exe repoB_deployment_key
         dos2unix repoB_deployment_key
+        dos2unix repoB_deployment_key_60
         # ssh-add repoB_deployment_key # suggested by https://serverfault.com/a/1095310
         git -c core.sshCommand='ssh -vvv -i repoB_deployment_key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no' clone -b main git@github.com:eudoxos/repoB.git repoB
+        git -c core.sshCommand='ssh -vvv -i repoB_deployment_key_60 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no' clone -b main git@github.com:eudoxos/repoB.git repoB_60
         ls repoB/README.md
   checkout-ubuntu:
     runs-on: ubuntu-20.04
