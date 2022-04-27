@@ -16,6 +16,7 @@ jobs:
          msystem: mingw64
          install: >-
            git
+           util-linux # for hexdump
     - name: repoA checkout
       uses: actions/checkout@v2
     - name: repoB checkout
