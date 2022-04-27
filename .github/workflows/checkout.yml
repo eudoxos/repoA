@@ -14,7 +14,7 @@ jobs:
       with:
          update: false
          msystem: MINGW64
-         install: git util-linux dos2unix
+         install: git util-linux dos2unix bash
     - name: repoA checkout
       uses: actions/checkout@v2
     - name: repoB checkout
@@ -22,6 +22,7 @@ jobs:
         set -x
         ls repoB_*
         chmod 600 repoB_*
+        hexdump repoB_*
         dos2unix repoB_deployment_key
         git -c core.sshCommand='ssh -vvv -i repoB_deployment_key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no' clone -b main git@github.com:eudoxos/repoB.git repoB
         ls repoB/README.md
