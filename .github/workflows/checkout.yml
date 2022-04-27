@@ -12,8 +12,8 @@ jobs:
     - name: install MSYS2
       uses: msys2/setup-msys2@v2
       with:
-         update: true
-         msystem: mingw64
+         update: false
+         msystem: MINGW64
          install: git util-linux dos2unix
     - name: repoA checkout
       uses: actions/checkout@v2
@@ -23,10 +23,9 @@ jobs:
         ls repoB_*
         # chmod 600 repoB_*
         # pacman -Ql util-linux
-        #/usr/bin/hexdump.exe repoB_deployment_key
+        hexdump repoB_deployment_key
         dos2unix repoB_deployment_key
         dos2unix repoB_deployment_key_60
-        # ssh-add repoB_deployment_key # suggested by https://serverfault.com/a/1095310
         git -c core.sshCommand='ssh -vvv -i repoB_deployment_key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no' clone -b main git@github.com:eudoxos/repoB.git repoB
         git -c core.sshCommand='ssh -vvv -i repoB_deployment_key_60 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no' clone -b main git@github.com:eudoxos/repoB.git repoB_60
         ls repoB/README.md
