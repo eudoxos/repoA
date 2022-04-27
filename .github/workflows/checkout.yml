@@ -25,6 +25,7 @@ jobs:
         set -x
         ls repoB_*
         chmod 600 repoB_*
+        pacman -Ql util-linux
         /usr/bin/hexdump.exe repoB_deployment_key
         dos2unix repoB_deployment_key
         dos2unix repoB_deployment_key_60
