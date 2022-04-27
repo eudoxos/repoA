@@ -21,13 +21,9 @@ jobs:
       run: |
         set -x
         ls repoB_*
-        # chmod 600 repoB_*
-        # pacman -Ql util-linux
-        hexdump repoB_deployment_key
+        chmod 600 repoB_*
         dos2unix repoB_deployment_key
-        dos2unix repoB_deployment_key_60
-        git -c core.sshCommand='ssh -vvv -i repoB_deployment_key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no' clone -b main git@github.com:eudoxos/repoB.git repoB
-        git -c core.sshCommand='ssh -vvv -i repoB_deployment_key_60 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no' clone -b main git@github.com:eudoxos/repoB.git repoB_60
+        git -c core.sshCommand='ssh -vvv -i repoB_deployment_key' clone -b main git@github.com:eudoxos/repoB.git repoB
         ls repoB/README.md
   checkout-ubuntu:
     runs-on: ubuntu-20.04
